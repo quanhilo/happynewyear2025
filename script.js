@@ -79,60 +79,6 @@ function handleClickLixi() {
     'Xin 50k nhé 💸',
   ];
 
-  // file qr
-  const filePathQR = './assets/qr/qr.jpg';
-  // có qr hay không
-  const showQR = false;
-
-  let availableMessages = [...chucMungMessages];
-  let availableLixiMessages = [...lixiMessages];
-
-  const lixiItems = document.querySelectorAll('.lixi');
-  const card = document.querySelector('.card');
-  const messageElement = document.getElementById('message');
-  const imageElement = document.getElementById('image');
-
-  function closeCurrentCard() {
-    const card = document.querySelector('.card');
-    card.style.display = 'none';
-    messageElement.style.display = 'none';
-    imageElement.style.display = 'none';
-  }
-
-  function showCard(message, lixiMessage, hasQR) {
-    closeCurrentCard();
-
-    card.style.display = 'flex';
-    messageElement.style.display = 'block';
-    messageElement.textContent = message;
-
-    if (hasQR) {
-      messageElement.textContent = lixiMessage;
-      imageElement.style.display = 'block';
-      imageElement.src = filePathQR;
-      return;
-    }
-  }
-
-  lixiItems.forEach((lixi) => {
-    lixi.addEventListener('click', function () {
-      if (availableMessages.length > 0) {
-        const message = getRandomPosition(availableMessages);
-        const hasQR = showQR ? Math.random() < 0.4 : false; // 60% chance for QR
-        if (hasQR) {
-          const lixiMessage = getRandomPosition(availableLixiMessages);
-          showCard(message, lixiMessage, hasQR);
-        } else {
-          showCard(message, null, hasQR);
-        }
-
-        // Disable clicked li xi
-        this.style.opacity = '0.5';
-        this.style.pointerEvents = 'none';
-      }
-    });
-  });
-
   document.addEventListener('click', function (event) {
     if (!card.contains(event.target) && !event.target.closest('.lixi')) {
       closeCurrentCard();
